@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace SoftwareCatalogDatabase
 {
-    public class BDWorker
+    public class DBWorker
     {
         SQLiteConnection Connection;
-        public BDWorker(string DBPath)
+        public DBWorker(string DBPath)
         {
             Connection = new SQLiteConnection(@"Data Source=" + DBPath);
             Connection.Open();
         }
-        ~BDWorker()
+        ~DBWorker()
         {
             try
             {
@@ -73,11 +73,9 @@ namespace SoftwareCatalogDatabase
             string commandText = "SELECT * FROM categories";
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             SQLiteDataReader SQLReader = Command.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(SQLReader);
-            for (int i = 0; i < dt.Rows.Count; i++)
+            while (SQLReader.Read())
             {
-                tags.Add(new Tag((int)dt.Rows[i][0], (string)dt.Rows[i][1]));
+                tags.Add(new Tag(SQLReader.GetInt32(0), SQLReader.GetString(1)));
             }
             return tags;
         }

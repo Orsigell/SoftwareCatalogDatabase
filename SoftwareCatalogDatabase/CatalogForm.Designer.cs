@@ -32,7 +32,7 @@
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Разработка ПО");
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Среда разработки");
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.TagsListView = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,26 +47,26 @@
             // 
             // listView2
             // 
-            this.listView2.CheckBoxes = true;
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listView2.HideSelection = false;
+            this.TagsListView.CheckBoxes = true;
+            this.TagsListView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.TagsListView.HideSelection = false;
             listViewItem1.StateImageIndex = 0;
             listViewItem1.Tag = "1";
             listViewItem2.StateImageIndex = 0;
             listViewItem2.Tag = "2";
             listViewItem3.StateImageIndex = 0;
             listViewItem3.Tag = "3";
-            this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            this.TagsListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
             listViewItem3});
-            this.listView2.Location = new System.Drawing.Point(0, 0);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(172, 450);
-            this.listView2.TabIndex = 3;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.List;
-            this.listView2.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.tagChecked);
+            this.TagsListView.Location = new System.Drawing.Point(0, 0);
+            this.TagsListView.Name = "listView2";
+            this.TagsListView.Size = new System.Drawing.Size(172, 450);
+            this.TagsListView.TabIndex = 3;
+            this.TagsListView.UseCompatibleStateImageBehavior = false;
+            this.TagsListView.View = System.Windows.Forms.View.List;
+            this.TagsListView.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.tagChecked);
             // 
             // CatalogForm
             // 
@@ -74,7 +74,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listView2);
+            this.Controls.Add(this.TagsListView);
             this.Name = "CatalogForm";
             this.Text = "CatalogForm";
             this.Load += new System.EventHandler(this.CatalogForm_Load);
@@ -86,6 +86,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView TagsListView;
     }
 }

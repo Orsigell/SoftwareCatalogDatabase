@@ -19,24 +19,28 @@ namespace SoftwareCatalogDatabase
 
         const string pathDB = @"C:\Users\Destroyer\Downloads\sqlitestudio-3.3.3\SQLiteStudio\SoftwareCatalogDatabase";
         //const string pathDB = @"SoftwareCatalogDatabase.db";
-        BDWorker myBDWorker;
+        DBWorker myBDWorker;
 
         private void CatalogForm_Load(object sender, EventArgs e)
         {
-            myBDWorker = new BDWorker(pathDB);
+            myBDWorker = new DBWorker(pathDB);
             FillTags();
             dataGridView1.DataSource = myBDWorker.GetSoftwareCatalogFromDB();
         }
         private void FillTags()
         {
-
+            TagsListView.Items.Clear();
+            foreach (var item in myBDWorker.GetTagsFromDB())
+            {
+                TagsListView.Items.Add(item.TagName).Tag = item.TagIndex;
+            }
         }
         private void tagChecked(object sender, ItemCheckedEventArgs e)
         {
             List<string> tags = new List<string>();
             foreach (ListViewItem item in ((ListView)sender).CheckedItems)
             {
-                tags.Add((string)item.Tag);
+                tags.Add(item.Tag.ToString());
             }
             if (tags.Count > 0)
             {
