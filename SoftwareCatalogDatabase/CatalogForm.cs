@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,19 +19,18 @@ namespace SoftwareCatalogDatabase
         }
 
         const string pathDB = @"C:\Users\Destroyer\Downloads\sqlitestudio-3.3.3\SQLiteStudio\SoftwareCatalogDatabase";
-        //const string pathDB = @"SoftwareCatalogDatabase.db";
-        DBWorker myBDWorker;
+        DBWorker myDBWorker;
 
         private void CatalogForm_Load(object sender, EventArgs e)
         {
-            myBDWorker = new DBWorker(pathDB);
+            myDBWorker = new DBWorker(pathDB);
             FillTags();
-            dataGridView1.DataSource = myBDWorker.GetSoftwareCatalogFromDB();
+            dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB();
         }
         private void FillTags()
         {
             TagsListView.Items.Clear();
-            foreach (var item in myBDWorker.GetTagsFromDB())
+            foreach (var item in myDBWorker.GetTagsFromDB())
             {
                 TagsListView.Items.Add(item.TagName).Tag = item.TagIndex;
             }
@@ -44,12 +44,41 @@ namespace SoftwareCatalogDatabase
             }
             if (tags.Count > 0)
             {
-                dataGridView1.DataSource = myBDWorker.GetSoftwareCatalogFromDB(tags);
+                dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB(tags);
             }
             else
             {
-                dataGridView1.DataSource = myBDWorker.GetSoftwareCatalogFromDB();
+                dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB();
             }
         }
+
+        private void dataGridView1_DataSourceChanged(object sender, EventArgs e)
+        {
+            dataGridView1.Columns["id_software"].Visible = false;
+            dataGridView1.Columns["image"].Visible = false;
+        }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
+            {
+                pictureBox1.Image = ByteToImage((byte[])dataGridView1.Rows[e.RowIndex].Cells[4].Value);
+            }
+        }
+        private Image ByteToImage(byte[] imageBytes)
+        {
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = new Bitmap(ms);
+            return image;
+        }
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
+            {
+                DetalProgramForm detalProgramForm = new DetalProgramForm(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value));
+                detalProgramForm.Show();
+            }
+        }
+
     }
 }

@@ -30,7 +30,7 @@ namespace SoftwareCatalogDatabase
         }
         public DataTable GetSoftwareCatalogFromDB()
         {
-            string commandText = "Select name,discription,link,size,ram_size from software";
+            string commandText = "Select id_software, name as Название,discription as Описание,link as Ссылка, image from software";
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             SQLiteDataReader SQLReader = Command.ExecuteReader();
             DataTable dt = new DataTable();
@@ -39,7 +39,7 @@ namespace SoftwareCatalogDatabase
         }
         public DataTable GetSoftwareCatalogFromDB(List<string> tags)
         {
-            string commandText = $"Select name,discription,link,size,ram_size from software where ({TagsToCommand(tags)})";
+            string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software where ({TagsToCommand(tags)})";
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             SQLiteDataReader SQLReader = Command.ExecuteReader();
             DataTable dt = new DataTable();
