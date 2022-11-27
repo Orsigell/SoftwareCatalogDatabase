@@ -56,7 +56,6 @@ namespace SoftwareCatalogDatabase
             command = command.Remove(command.Length - 3, 3);
             return command;
         }
-
         public struct Tag
         {
             public Tag(int tagIndex, string tagName)
@@ -79,6 +78,53 @@ namespace SoftwareCatalogDatabase
             }
             return tags;
         }
+        public DataTable GetSoftwareInfoToDetalForm(int id)
+        {
+            string commandText = "SELECT * FROM software WHERE id_software = " + id;
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            return dt;
+        }
+        public List<byte[]> GetSoftwareScreensFromDB(int id_screen_group)
+        {
+            string commandText = $"SELECT screen FROM screens WHERE id_screens IN (SELECT screens_id FROM screen_group WHERE id_screen_group = {id_screen_group})";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            List<byte[]> list = new List<byte[]>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                list.Add((byte[])dt.Rows[i][0]);
+            }
+            return list;
+        }
+        public List<string> GetSoftwareCommentsFromDB(int id_comments_group)
+        {
+            string commandText = $"SELECT comment_text FROM comments WHERE id_comments IN (SELECT comments_id FROM comments_group WHERE id_comments_group = {id_comments_group})";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            List<string> list = new List<string>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                list.Add((string)dt.Rows[i][0]);
+            }
+            return list;
+        }
+        public DataTable GetSoftwarelicenseFromDB(int id_licenses)
+        {
+            string commandText = $"SELECT licenses_name as 'Название лицензии', licenses_price as 'Цена лицензнии', license_duration as 'Длительность лицензии' FROM licenses WHERE id_licenses = {id_licenses}";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            return dt;
+        }
+
         //public void InsertIntoDB(string name, string surname, string patronymic, double weight, bool gender, DateTime dateOfBirth, byte[] imageArr)
         //{
         //    string commandText = $"Insert INTO Person (Name, Surname, Patronymic, Weight, Gender, Image, DateOfBirth) VALUES ('{name}', '{surname}', '{patronymic}', {weight}, {gender}, @0, @d)";

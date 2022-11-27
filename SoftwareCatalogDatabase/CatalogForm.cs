@@ -75,7 +75,7 @@ namespace SoftwareCatalogDatabase
         {
             if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
             {
-                DetalProgramForm detalProgramForm = new DetalProgramForm(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value));
+                DetalProgramForm detalProgramForm = new DetalProgramForm(myDBWorker ,Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value));
                 detalProgramForm.Show();
             }
         }
