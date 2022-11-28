@@ -70,5 +70,11 @@ namespace SoftwareCatalogDatabase
             }
             pictureBox2.Image = imgList[imageIndex];
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CatalogForm.MainForm.FindAnalogues(dBWorker.GetTagsBySoftwareFromDB(Convert.ToInt32(dt.Rows[0][0])));
+            CatalogForm.MainForm.Focus();
+        }
     }
 }

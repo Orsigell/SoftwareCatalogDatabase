@@ -78,6 +78,20 @@ namespace SoftwareCatalogDatabase
             }
             return tags;
         }
+
+        public List<Tag> GetTagsBySoftwareFromDB(int id_categories_group)
+        {
+            List<Tag> tags = new List<Tag>();
+            string commandText = $"SELECT * FROM categories WHERE categories.id_categories IN (SELECT categories_id FROM  categories_group WHERE id_categories_group = {id_categories_group})";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            while (SQLReader.Read())
+            {
+                tags.Add(new Tag(SQLReader.GetInt32(0), SQLReader.GetString(1)));
+            }
+            return tags;
+        }
+
         public DataTable GetSoftwareInfoToDetalForm(int id)
         {
             string commandText = "SELECT * FROM software WHERE id_software = " + id;
@@ -117,7 +131,7 @@ namespace SoftwareCatalogDatabase
         }
         public DataTable GetSoftwarelicenseFromDB(int id_licenses)
         {
-            string commandText = $"SELECT licenses_name as 'Название лицензии', licenses_price as 'Цена лицензнии', license_duration as 'Длительность лицензии' FROM licenses WHERE id_licenses = {id_licenses}";
+            string commandText = $"SELECT licenses_name as 'Название лицензии', licenses_type_name as 'Тип лицензии', licenses_price as 'Цена лицензнии', license_duration as 'Длительность лицензии' FROM licenses, licenses_type WHERE id_licenses = {id_licenses} AND licenses.id_licenses_type = licenses_type.licenses_type_id";
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             SQLiteDataReader SQLReader = Command.ExecuteReader();
             DataTable dt = new DataTable();

@@ -16,8 +16,9 @@ namespace SoftwareCatalogDatabase
         public CatalogForm()
         {
             InitializeComponent();
+            MainForm = this;
         }
-
+        public static CatalogForm MainForm;
         const string pathDB = @"C:\Users\Destroyer\Downloads\sqlitestudio-3.3.3\SQLiteStudio\SoftwareCatalogDatabase";
         DBWorker myDBWorker;
 
@@ -71,6 +72,23 @@ namespace SoftwareCatalogDatabase
             Image image = new Bitmap(ms);
             return image;
         }
+
+        internal void FindAnalogues(List<DBWorker.Tag> tags)
+        {
+            foreach (ListViewItem item in TagsListView.Items)
+            {
+                bool isExists = false;
+                foreach (var item2 in tags)
+                {
+                    if (item.Text == item2.TagName)
+                    {
+                        isExists = true;
+                    }
+                }
+                item.Checked = isExists;
+            }
+        }
+
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
@@ -80,5 +98,19 @@ namespace SoftwareCatalogDatabase
             }
         }
 
+        private void добавитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void изменитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void удалитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
