@@ -25,11 +25,12 @@ namespace SoftwareCatalogDatabase
             label3.Text = (string)dt.Rows[0][1];
             pictureBox1.Image = ByteToImage((byte[])dt.Rows[0][3]);
             textBox1.Text = (string)dt.Rows[0][2];
-            imgList = ByteArrToImageArr(dBWorker.GetSoftwareScreensFromDB(Convert.ToInt32(dt.Rows[0][8])));
+            textBox3.Text = Convert.ToString(dt.Rows[0][5]);
+            imgList = ByteArrToImageArr(dBWorker.GetSoftwareScreensFromDB(Convert.ToInt32(dt.Rows[0][7])));
             pictureBox2.Image = imgList[0];
-            dataGridView1.DataSource = dBWorker.GetSoftwarelicenseFromDB(Convert.ToInt32(dt.Rows[0][9]));
+            dataGridView1.DataSource = dBWorker.GetSoftwarelicenseFromDB(Convert.ToInt32(dt.Rows[0][8]));
             CommentsUpdate(dBWorker);
-            foreach (var item in dBWorker.GetTagsBySoftwareFromDB(Convert.ToInt32(dt.Rows[0][10])))
+            foreach (var item in dBWorker.GetTagsBySoftwareFromDB(Convert.ToInt32(dt.Rows[0][9])))
             {
                 listBox2.Items.Add(item.TagName);
             }
@@ -38,7 +39,7 @@ namespace SoftwareCatalogDatabase
         private void CommentsUpdate(DBWorker dBWorker)
         {
             listBox1.Items.Clear();
-            foreach (var item in dBWorker.GetSoftwareCommentsFromDB(Convert.ToInt32(dt.Rows[0][7])))
+            foreach (var item in dBWorker.GetSoftwareCommentsFromDB(Convert.ToInt32(dt.Rows[0][6])))
             {
                 listBox1.Items.Add(item);
             }
@@ -53,6 +54,7 @@ namespace SoftwareCatalogDatabase
             }
             return images;
         }
+
         private Image ByteToImage(byte[] imageBytes)
         {
             MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
@@ -92,14 +94,14 @@ namespace SoftwareCatalogDatabase
         {
             if (textBox2.Text != "")
             {
-                dBWorker.SendComment(textBox2.Text, Convert.ToInt32(dt.Rows[0][7]));
+                dBWorker.SendComment(textBox2.Text, Convert.ToInt32(dt.Rows[0][6]));
                 CommentsUpdate(dBWorker);
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ComparisonForm comparisonForm = new ComparisonForm();
+            ComparisonForm comparisonForm = new ComparisonForm(dBWorker, dt);
             comparisonForm.Show();
         }
     }

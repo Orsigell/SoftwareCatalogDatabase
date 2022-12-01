@@ -46,6 +46,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -72,9 +74,9 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(576, 23);
+            this.pictureBox2.Location = new System.Drawing.Point(795, 23);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(606, 324);
+            this.pictureBox2.Size = new System.Drawing.Size(530, 324);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -85,12 +87,12 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(419, 324);
+            this.textBox1.Size = new System.Drawing.Size(316, 324);
             this.textBox1.TabIndex = 3;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(785, 353);
+            this.button2.Location = new System.Drawing.Point(928, 353);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(107, 23);
             this.button2.TabIndex = 4;
@@ -100,7 +102,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(898, 353);
+            this.button3.Location = new System.Drawing.Point(1041, 353);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(107, 23);
             this.button3.TabIndex = 5;
@@ -111,21 +113,21 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(652, 382);
+            this.listBox1.Location = new System.Drawing.Point(795, 382);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(530, 225);
             this.listBox1.TabIndex = 6;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(652, 615);
+            this.textBox2.Location = new System.Drawing.Point(795, 615);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(417, 20);
             this.textBox2.TabIndex = 7;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1075, 613);
+            this.button4.Location = new System.Drawing.Point(1218, 613);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(107, 23);
             this.button4.TabIndex = 8;
@@ -156,7 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(649, 363);
+            this.label2.Location = new System.Drawing.Point(792, 366);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 11;
@@ -183,7 +185,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(573, 7);
+            this.label5.Location = new System.Drawing.Point(792, 7);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 14;
@@ -203,24 +205,44 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(473, 382);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(173, 225);
+            this.listBox2.Size = new System.Drawing.Size(316, 225);
             this.listBox2.TabIndex = 16;
             // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(473, 613);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(173, 23);
+            this.button5.Size = new System.Drawing.Size(316, 23);
             this.button5.TabIndex = 17;
             this.button5.Text = "Сравнить с другим ПО";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(470, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(127, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Системные требования";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(473, 23);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(316, 324);
+            this.textBox3.TabIndex = 19;
+            // 
             // DetalProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 642);
+            this.ClientSize = new System.Drawing.Size(1337, 642);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.label6);
@@ -240,7 +262,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "DetalProgramForm";
-            this.Text = "DetalProgramForm";
+            this.Text = " ";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -269,5 +291,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
