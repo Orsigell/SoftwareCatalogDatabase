@@ -66,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComparisonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComparisonForm.Designer.cs">
+      <DependentUpon>ComparisonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBWorker.cs" />
     <Compile Include="CatalogForm.cs">
       <SubType>Form</SubType>
@@ -83,6 +89,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CatalogForm.resx">
       <DependentUpon>CatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComparisonForm.resx">
+      <DependentUpon>ComparisonForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalProgramForm.resx">
       <DependentUpon>DetalProgramForm.cs</DependentUpon>

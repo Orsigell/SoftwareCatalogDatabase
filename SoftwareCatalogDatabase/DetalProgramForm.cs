@@ -28,11 +28,22 @@ namespace SoftwareCatalogDatabase
             imgList = ByteArrToImageArr(dBWorker.GetSoftwareScreensFromDB(Convert.ToInt32(dt.Rows[0][8])));
             pictureBox2.Image = imgList[0];
             dataGridView1.DataSource = dBWorker.GetSoftwarelicenseFromDB(Convert.ToInt32(dt.Rows[0][9]));
+            CommentsUpdate(dBWorker);
+            foreach (var item in dBWorker.GetTagsBySoftwareFromDB(Convert.ToInt32(dt.Rows[0][10])))
+            {
+                listBox2.Items.Add(item.TagName);
+            }
+        }
+
+        private void CommentsUpdate(DBWorker dBWorker)
+        {
+            listBox1.Items.Clear();
             foreach (var item in dBWorker.GetSoftwareCommentsFromDB(Convert.ToInt32(dt.Rows[0][7])))
             {
                 listBox1.Items.Add(item);
             }
         }
+
         private List<Image> ByteArrToImageArr(List<byte[]> bytes)
         {
             List<Image> images = new List<Image>();
@@ -75,6 +86,21 @@ namespace SoftwareCatalogDatabase
         {
             CatalogForm.MainForm.FindAnalogues(dBWorker.GetTagsBySoftwareFromDB(Convert.ToInt32(dt.Rows[0][0])));
             CatalogForm.MainForm.Focus();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text != "")
+            {
+                dBWorker.SendComment(textBox2.Text, Convert.ToInt32(dt.Rows[0][7]));
+                CommentsUpdate(dBWorker);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ComparisonForm comparisonForm = new ComparisonForm();
+            comparisonForm.Show();
         }
     }
 }

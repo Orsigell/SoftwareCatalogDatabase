@@ -19,7 +19,7 @@ namespace SoftwareCatalogDatabase
             MainForm = this;
         }
         public static CatalogForm MainForm;
-        const string pathDB = @"C:\Users\Destroyer\Downloads\sqlitestudio-3.3.3\SQLiteStudio\SoftwareCatalogDatabase";
+        const string pathDB = @"SoftwareCatalogDatabase";
         DBWorker myDBWorker;
 
         private void CatalogForm_Load(object sender, EventArgs e)
@@ -111,6 +111,11 @@ namespace SoftwareCatalogDatabase
         private void удалитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDBApproximately(textBox1.Text);
         }
     }
 }

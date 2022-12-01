@@ -43,6 +43,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -108,16 +111,16 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(576, 382);
+            this.listBox1.Location = new System.Drawing.Point(652, 382);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(606, 225);
+            this.listBox1.Size = new System.Drawing.Size(530, 225);
             this.listBox1.TabIndex = 6;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(576, 615);
+            this.textBox2.Location = new System.Drawing.Point(652, 615);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(493, 20);
+            this.textBox2.Size = new System.Drawing.Size(417, 20);
             this.textBox2.TabIndex = 7;
             // 
             // button4
@@ -128,6 +131,7 @@
             this.button4.TabIndex = 8;
             this.button4.Text = "Отправить отзыв";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // dataGridView1
             // 
@@ -137,7 +141,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 382);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(558, 225);
+            this.dataGridView1.Size = new System.Drawing.Size(455, 225);
             this.dataGridView1.TabIndex = 9;
             // 
             // label1
@@ -152,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(573, 358);
+            this.label2.Location = new System.Drawing.Point(649, 363);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 11;
@@ -185,11 +189,41 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Скриншоты";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(470, 363);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Теги";
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(473, 382);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(173, 225);
+            this.listBox2.TabIndex = 16;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(473, 613);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(173, 23);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "Сравнить с другим ПО";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // DetalProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 642);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -232,5 +266,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button button5;
     }
 }

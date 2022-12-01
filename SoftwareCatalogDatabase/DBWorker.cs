@@ -101,6 +101,17 @@ namespace SoftwareCatalogDatabase
             dt.Load(SQLReader);
             return dt;
         }
+
+        internal DataTable GetSoftwareCatalogFromDBApproximately(string text)
+        {
+            string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software WHERE name LIKE '%{text}%'";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            return dt;
+        }
+
         public List<byte[]> GetSoftwareScreensFromDB(int id_screen_group)
         {
             string commandText = $"SELECT screen FROM screens WHERE id_screens IN (SELECT screens_id FROM screen_group WHERE id_screen_group = {id_screen_group})";
@@ -138,7 +149,20 @@ namespace SoftwareCatalogDatabase
             dt.Load(SQLReader);
             return dt;
         }
-
+        //public void SendComment(string comment, int comment_group_id)
+        //{
+        //    string commandText = $"INSERT INTO comments (comment_text) VALUES ('{comment}');" +
+        //        $"INSERT INTO comments_group (id_comments_group, comments_id) VALUES ({comment_group_id},last_insert_rowid())";
+        //    SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+        //    Command.ExecuteNonQuery();
+        //}
+        public void SendComment(string comment, int comment_group_id)
+        {
+            string commandText = $"INSERT INTO comments (comment_text) VALUES ('{comment}');" +
+                $"INSERT INTO comments_group (id_comments_group, comments_id) VALUES ({comment_group_id},last_insert_rowid())";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            Command.ExecuteNonQuery();
+        }
         //public void InsertIntoDB(string name, string surname, string patronymic, double weight, bool gender, DateTime dateOfBirth, byte[] imageArr)
         //{
         //    string commandText = $"Insert INTO Person (Name, Surname, Patronymic, Weight, Gender, Image, DateOfBirth) VALUES ('{name}', '{surname}', '{patronymic}', {weight}, {gender}, @0, @d)";
