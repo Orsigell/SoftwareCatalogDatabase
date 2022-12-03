@@ -17,6 +17,32 @@ namespace SoftwareCatalogDatabase
             Connection = new SQLiteConnection(@"Data Source=" + DBPath);
             Connection.Open();
         }
+
+        public List<string> GetCoolectionArray()
+        {
+            string commandText = $"SELECT DISTINCT collection_group_name FROM collection_group";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            List<string> list = new List<string>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                list.Add((string)dt.Rows[i][0]);
+            }
+            return list;
+        }
+
+        public DataTable GetCollectionByName(string collectioNname)
+        {
+            string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software WHERE id_software IN (SELECT software_id FROM collection_group WHERE collection_group_name='{collectioNname}')";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(SQLReader);
+            return dt;
+        }
+
         ~DBWorker()
         {
             try
@@ -149,13 +175,7 @@ namespace SoftwareCatalogDatabase
             dt.Load(SQLReader);
             return dt;
         }
-        //public void SendComment(string comment, int comment_group_id)
-        //{
-        //    string commandText = $"INSERT INTO comments (comment_text) VALUES ('{comment}');" +
-        //        $"INSERT INTO comments_group (id_comments_group, comments_id) VALUES ({comment_group_id},last_insert_rowid())";
-        //    SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
-        //    Command.ExecuteNonQuery();
-        //}
+
         public void SendComment(string comment, int comment_group_id)
         {
             string commandText = $"INSERT INTO comments (comment_text) VALUES ('{comment}');" +

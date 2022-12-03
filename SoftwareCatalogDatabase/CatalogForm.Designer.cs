@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("Текстовый редактор");
-            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("Разработка ПО");
-            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("Среда разработки");
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.TagsListView = new System.Windows.Forms.ListView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -41,9 +38,15 @@
             this.изменитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.найтиПОПоПодборкамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -66,16 +69,6 @@
             this.TagsListView.CheckBoxes = true;
             this.TagsListView.Dock = System.Windows.Forms.DockStyle.Left;
             this.TagsListView.HideSelection = false;
-            listViewItem19.StateImageIndex = 0;
-            listViewItem19.Tag = "1";
-            listViewItem20.StateImageIndex = 0;
-            listViewItem20.Tag = "2";
-            listViewItem21.StateImageIndex = 0;
-            listViewItem21.Tag = "3";
-            this.TagsListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem19,
-            listViewItem20,
-            listViewItem21});
             this.TagsListView.Location = new System.Drawing.Point(0, 24);
             this.TagsListView.Name = "TagsListView";
             this.TagsListView.Size = new System.Drawing.Size(172, 426);
@@ -86,10 +79,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(716, 24);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(297, 426);
+            this.pictureBox1.Size = new System.Drawing.Size(291, 271);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -98,7 +90,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.оПрограммеToolStripMenuItem,
-            this.функцииТехническогоСпециалистаToolStripMenuItem});
+            this.функцииТехническогоСпециалистаToolStripMenuItem,
+            this.найтиПОПоПодборкамToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1013, 24);
@@ -153,13 +146,59 @@
             this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(716, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(297, 426);
+            this.panel1.TabIndex = 8;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 391);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(279, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Добавить программу в подборку";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(126, 364);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(168, 21);
+            this.comboBox1.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 367);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Название подборки";
+            // 
+            // найтиПОПоПодборкамToolStripMenuItem
+            // 
+            this.найтиПОПоПодборкамToolStripMenuItem.Name = "найтиПОПоПодборкамToolStripMenuItem";
+            this.найтиПОПоПодборкамToolStripMenuItem.Size = new System.Drawing.Size(156, 20);
+            this.найтиПОПоПодборкамToolStripMenuItem.Text = "Найти ПО по подборкам";
+            this.найтиПОПоПодборкамToolStripMenuItem.Click += new System.EventHandler(this.найтиПОПоПодборкамToolStripMenuItem_Click);
+            // 
             // CatalogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 450);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.TagsListView);
             this.Controls.Add(this.menuStrip1);
@@ -171,6 +210,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,5 +229,10 @@
         private System.Windows.Forms.ToolStripMenuItem изменитьЗаписьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьЗаписьToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem найтиПОПоПодборкамToolStripMenuItem;
     }
 }

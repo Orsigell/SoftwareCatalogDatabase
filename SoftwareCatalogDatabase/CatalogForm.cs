@@ -27,6 +27,14 @@ namespace SoftwareCatalogDatabase
             myDBWorker = new DBWorker(pathDB);
             FillTags();
             dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB();
+            FillCollectionComboBox();
+        }
+        private void FillCollectionComboBox()
+        {
+            foreach (var item in myDBWorker.GetCoolectionArray())
+            {
+                comboBox1.Items.Add(item);
+            }
         }
         private void FillTags()
         {
@@ -116,6 +124,21 @@ namespace SoftwareCatalogDatabase
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDBApproximately(textBox1.Text);
+        }
+
+        private void найтиПОПоПодборкамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogForm dialogForm = new DialogForm(myDBWorker);
+            if(dialogForm.ShowDialog() == DialogResult.OK)
+            {
+                CollectionForm collectionForm = new CollectionForm(dialogForm.CollectionName ,myDBWorker);
+                collectionForm.Show();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

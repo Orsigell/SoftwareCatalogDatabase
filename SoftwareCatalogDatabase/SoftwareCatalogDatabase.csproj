@@ -66,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CollectionForm.Designer.cs">
+      <DependentUpon>CollectionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComparisonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,16 +91,28 @@
     <Compile Include="DetalProgramForm.Designer.cs">
       <DependentUpon>DetalProgramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForm.Designer.cs">
+      <DependentUpon>DialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CatalogForm.resx">
       <DependentUpon>CatalogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CollectionForm.resx">
+      <DependentUpon>CollectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ComparisonForm.resx">
       <DependentUpon>ComparisonForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalProgramForm.resx">
       <DependentUpon>DetalProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForm.resx">
+      <DependentUpon>DialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
