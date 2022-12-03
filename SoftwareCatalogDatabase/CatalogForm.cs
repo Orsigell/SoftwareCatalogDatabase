@@ -70,6 +70,7 @@ namespace SoftwareCatalogDatabase
         {
             if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
             {
+                selectedSoftwareId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
                 pictureBox1.Image = ByteToImage((byte[])dataGridView1.Rows[e.RowIndex].Cells[4].Value);
             }
         }
@@ -96,7 +97,7 @@ namespace SoftwareCatalogDatabase
                 item.Checked = isExists;
             }
         }
-
+        int selectedSoftwareId = - 1;
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((e.RowIndex >= 0) && (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null))
@@ -138,7 +139,17 @@ namespace SoftwareCatalogDatabase
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            if (comboBox1.Text != "")
+            {
+                if (selectedSoftwareId != -1)
+                {
+                    myDBWorker.AddSoftwareToSelection(selectedSoftwareId, comboBox1.Text);
+                    if (!comboBox1.Items.Contains(comboBox1.Text))
+                    {
+                        comboBox1.Items.Add(comboBox1.Text);
+                    }
+                }
+            }
         }
     }
 }

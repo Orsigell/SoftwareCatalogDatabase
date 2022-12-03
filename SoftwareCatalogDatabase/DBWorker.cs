@@ -128,6 +128,13 @@ namespace SoftwareCatalogDatabase
             return dt;
         }
 
+        public void AddSoftwareToSelection(int selectedSoftwareId, string name)
+        {
+            string commandText = $"INSERT INTO collection_group (collection_group_name,software_id) VALUES ('{name}',{selectedSoftwareId})";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            Command.ExecuteNonQuery();
+        }
+
         internal DataTable GetSoftwareCatalogFromDBApproximately(string text)
         {
             string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software WHERE name LIKE '%{text}%'";
