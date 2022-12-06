@@ -109,7 +109,8 @@ namespace SoftwareCatalogDatabase
 
         private void добавитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AddSoftwareForm addSoftwareForm = new AddSoftwareForm(myDBWorker);
+            addSoftwareForm.Show();
         }
 
         private void изменитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,6 +151,12 @@ namespace SoftwareCatalogDatabase
                     }
                 }
             }
+        }
+
+        public void CatalogUpdate()
+        {
+            FillTags();
+            dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB();
         }
     }
 }
