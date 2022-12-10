@@ -32,6 +32,21 @@ namespace SoftwareCatalogDatabase
             return list;
         }
 
+        public DataTable GetSoftwareCatalogFromDBById(int id)
+        {
+            return ExecuteSQLCommandAndReturnDataTable($"SELECT * FROM SOFTWARE WHERE id_software == {id}");
+        }
+
+        public DataTable GetSoftwareLicensesById(int id)
+        {
+            return ExecuteSQLCommandAndReturnDataTable($"SELECT * FROM licenses WHERE id_licenses == {id}");
+        }
+
+        public string GetLicensesTypeNameById(int id)
+        {
+            return ExecuteSQLCommandAndReturnDataTable($"SELECT licenses_type_name FROM licenses_type WHERE licenses_type_id == {id}").Rows[0][0].ToString();
+        }
+
         public DataTable GetCollectionByName(string collectioNname)
         {
             string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software WHERE id_software IN (SELECT software_id FROM collection_group WHERE collection_group_name='{collectioNname}')";
@@ -55,21 +70,21 @@ namespace SoftwareCatalogDatabase
         }
         public DataTable GetSoftwareCatalogFromDB()
         {
-            string commandText = "Select id_software, name as Название,discription as Описание,link as Ссылка, image from software";
+            return ExecuteSQLCommandAndReturnDataTable("Select id_software, name as Название,discription as Описание,link as Ссылка, image from software");
+        }
+
+        private DataTable ExecuteSQLCommandAndReturnDataTable(string commandText)
+        {
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             SQLiteDataReader SQLReader = Command.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(SQLReader);
             return dt;
         }
+
         public DataTable GetSoftwareCatalogFromDB(List<string> tags)
         {
-            string commandText = $"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software where ({TagsToCommand(tags)})";
-            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
-            SQLiteDataReader SQLReader = Command.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(SQLReader);
-            return dt;
+            return ExecuteSQLCommandAndReturnDataTable($"Select id_software, name as Название,discription as Описание,link as Ссылка, image from software where ({TagsToCommand(tags)})");
         }
         private string TagsToCommand(List<string> tags)
         {
@@ -115,6 +130,13 @@ namespace SoftwareCatalogDatabase
             Command.ExecuteNonQuery();
         }
 
+        public void DeleteSoftware(int selectedSoftwareId)
+        {
+            string commandText = $"Delete FROM software Where id_software = {selectedSoftwareId}";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            Command.ExecuteNonQuery();
+        }
+
         public List<Tag> GetTagsFromDB()
         {
             List<Tag> tags = new List<Tag>();
@@ -134,7 +156,7 @@ namespace SoftwareCatalogDatabase
             {
                 try
                 {
-                    SQLiteCommand sqliteCommand = new SQLiteCommand($"INSERT INTO software (name,discription,image,link,system_requirements,comments_group_id,screen_group_id,licenses_id,categories_group_id) VALUES ('{name}','{disc}',@image,'{link}','{sysReq}',(SELECT MAX (id_comments_group + 1) FROM comments_group),{AddImagesToImageGroup(imagesList)},{AddLicence(licenceNameText, duration, price, GetLicenceTypeIdByName(licenceTypeText))},{CreateCategoriesGroup(tags)})", Connection, transaction);
+                    SQLiteCommand sqliteCommand = new SQLiteCommand($"INSERT INTO software (name,discription,image,link,system_requirements,comments_group_id,screen_group_id,licenses_id,categories_group_id) VALUES ('{name}','{disc}',@image,'{link}','{sysReq}',(SELECT MAX (comments_group_id + 1) FROM software),{AddImagesToImageGroup(imagesList, transaction)},{AddLicence(licenceNameText, duration, price, GetLicenceTypeIdByName(licenceTypeText), transaction)},{CreateCategoriesGroup(tags, transaction)})", Connection, transaction);
                     sqliteCommand.Parameters.Add(new SQLiteParameter("@image", image));
                     sqliteCommand.ExecuteNonQuery();
                     transaction.Commit();
@@ -147,14 +169,13 @@ namespace SoftwareCatalogDatabase
             }
 
         }
-
-        private int CreateCategoriesGroup(List<string> tags)
+        private int CreateCategoriesGroup(List<string> tags, SQLiteTransaction transaction)
         {
             int categoriesGroupId = GetNumber("SELECT MAX(id_categories_group + 1) FROM categories_group");
             foreach (var item in tags)
             {
                 string commandText = $"INSERT INTO categories_group (id_categories_group, categories_id) VALUES ({categoriesGroupId},{item})";
-                SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
                 Command.ExecuteNonQuery();
             }
             return categoriesGroupId;
@@ -170,7 +191,8 @@ namespace SoftwareCatalogDatabase
             {
                 string commandText = $"INSERT INTO licenses_type (licenses_type_name) VALUES ('{licenceTypeText}')";
                 SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
-                return Command.ExecuteNonQuery();
+                Command.ExecuteNonQuery();
+                return GetNumberLastInsertRowId();
             }
         }
 
@@ -183,41 +205,43 @@ namespace SoftwareCatalogDatabase
             return false;
         }
 
-        private int AddLicence(string licenceNameText, decimal duration, decimal price, int typeId)
+        private int AddLicence(string licenceNameText, decimal duration, decimal price, int typeId, SQLiteTransaction transaction)
         {
             string commandText = $"INSERT INTO licenses (licenses_name,id_licenses_type,licenses_price,license_duration) VALUES ('{licenceNameText}',{typeId},{(int)price},{(int)duration})";
-            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
-            return Command.ExecuteNonQuery();
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
+            Command.ExecuteNonQuery();
+            return GetNumberLastInsertRowId();
         }
 
-        private int AddImagesToImageGroup(List<byte[]> imagesList)
+        private int AddImagesToImageGroup(List<byte[]> imagesList, SQLiteTransaction transaction)
         {
             int imageGroupId = GetNumber("SELECT MAX(id_screen_group + 1) FROM screen_group");
             foreach (var item in imagesList)
             {
-                string commandText = $"INSERT INTO screen_group (id_screen_group,screens_id) VALUES ({imageGroupId},{AddImage(item)})";
-                SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+                string commandText = $"INSERT INTO screen_group (id_screen_group,screens_id) VALUES ({imageGroupId},{AddScreen(item)})";
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
                 Command.ExecuteNonQuery();
             }
             return imageGroupId;
         }
 
-        private int AddImage(byte[] image)
+        private int AddScreen(byte[] image)
         {
             string commandText = "INSERT INTO screens (screen) VALUES (@img)";
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             Command.Parameters.Add(new SQLiteParameter("@img", image));
-            return Command.ExecuteNonQuery();
+            Command.ExecuteNonQuery();
+            return GetNumberLastInsertRowId(); 
         }
 
-        //private int GetNumberLastInsertRowId()
-        //{
-        //    string commandText = "SELECT last_insert_rowid()";
-        //    SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
-        //    SQLiteDataReader SQLReader = Command.ExecuteReader();
-        //    SQLReader.Read();
-        //    return SQLReader.GetInt32(0);
-        //}
+        private int GetNumberLastInsertRowId()
+        {
+            string commandText = "SELECT last_insert_rowid()";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
+            SQLiteDataReader SQLReader = Command.ExecuteReader();
+            SQLReader.Read();
+            return SQLReader.GetInt32(0);
+        }
         private int GetNumber(string commandText)
         {
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
@@ -225,6 +249,80 @@ namespace SoftwareCatalogDatabase
             SQLReader.Read();
             return SQLReader.GetInt32(0);
         }
+        public void UpdateSoftware(int id,string name, string disc, string link, byte[] image, string sysReq, List<byte[]> imagesList, string licenceNameText, decimal duration, decimal price, string licenceTypeText, List<string> tags)
+        {
+            using (var transaction = Connection.BeginTransaction())
+            {
+                try
+                {
+                    SQLiteCommand sqliteCommand = new SQLiteCommand($"Update software SET name = '{name}', discription = '{disc}', image = @img, link = '{link}', system_requirements = '{sysReq}' where id_software = {id}", Connection, transaction);
+                    sqliteCommand.Parameters.Add(new SQLiteParameter("@img", image));
+                    sqliteCommand.ExecuteNonQuery();
+                    ReplaceScreens(imagesList,transaction,GetNumber($"SELECT screen_group_id FROM software WHERE id_software = {id}"));
+                    UpdateLicence(licenceNameText, duration, price, licenceTypeText, transaction, GetNumber($"SELECT licenses_id FROM software WHERE id_software = {id}"));
+                    TagsUpdate(tags, transaction, GetNumber($"SELECT categories_group_id FROM software WHERE id_software = {id}"));
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        private void TagsUpdate(List<string> tags, SQLiteTransaction transaction, int tagsGroupId)
+        {
+            DeleteTagsFromImageGroup(transaction, tagsGroupId);
+            AddTagsToTagsGroup(tags, transaction, tagsGroupId);
+        }
+
+        private void DeleteTagsFromImageGroup(SQLiteTransaction transaction, int tagsGroupId)
+        {
+            string commandText = $"Delete FROM categories_group Where id_categories_group = {tagsGroupId}";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
+            Command.ExecuteNonQuery();
+        }
+
+        private void AddTagsToTagsGroup(List<string> tags, SQLiteTransaction transaction, int categoriesGroupId)
+        {
+            foreach (var item in tags)
+            {
+                string commandText = $"INSERT INTO categories_group (id_categories_group, categories_id) VALUES ({categoriesGroupId},{item})";
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
+                Command.ExecuteNonQuery();
+            }
+        }
+
+        private void UpdateLicence(string licenceNameText, decimal duration, decimal price, string licenceTypeText, SQLiteTransaction transaction, int licenceId)
+        {
+            SQLiteCommand sqliteCommand = new SQLiteCommand($"Update licenses SET licenses_name = '{licenceNameText}',id_licenses_type = {GetNumber($"SELECT licenses_type_id FROM licenses_type WHERE licenses_type_name = '{licenceTypeText}'")}, licenses_price = {price}, license_duration = {duration} where id_licenses = {licenceId}", Connection, transaction);
+            sqliteCommand.ExecuteNonQuery();
+        }
+
+        private void ReplaceScreens(List<byte[]> imagesList, SQLiteTransaction transaction, int imageGroupId)
+        {
+            DeleteImagesFromImageGroup(transaction, imageGroupId);
+            AddImagesToImageGroup(imagesList, transaction, imageGroupId);
+        }
+
+        private void DeleteImagesFromImageGroup(SQLiteTransaction transaction, int imageGroupId)
+        {
+            string commandText = $"Delete FROM screen_group Where id_screen_group = {imageGroupId}";
+            SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
+            Command.ExecuteNonQuery();
+        }
+
+        private void AddImagesToImageGroup(List<byte[]> imagesList, SQLiteTransaction transaction, int imageGroupId)
+        {
+            foreach (var item in imagesList)
+            {
+                string commandText = $"INSERT INTO screen_group (id_screen_group,screens_id) VALUES ({imageGroupId},{AddScreen(item)})";
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connection, transaction);
+                Command.ExecuteNonQuery();
+            }
+        }
+
         public List<Tag> GetTagsBySoftwareFromDB(int id_categories_group)
         {
             List<Tag> tags = new List<Tag>();
@@ -310,23 +408,5 @@ namespace SoftwareCatalogDatabase
             SQLiteCommand Command = new SQLiteCommand(commandText, Connection);
             Command.ExecuteNonQuery();
         }
-        //public void UpdateIntoDB(string name, string surname, string patronymic, double weight, bool gender, DateTime dateOfBirth, byte[] imageArr, int id)
-        //{
-        //    string commandText = $"Update Person SET Name = '{name}', Surname = '{surname}', Patronymic = '{patronymic}', Weight = '{weight}', Gender = '{gender}', Image = @0, DateOfBirth = @d where PersonId = '{id}'";
-        //    SQLiteCommand command = new SQLiteCommand(commandText, Connection);
-        //    SQLiteParameter param = new SQLiteParameter("@0", DbType.Binary);
-        //    param.Value = imageArr;
-        //    SQLiteParameter param2 = new SQLiteParameter("@d", DbType.Date);
-        //    param2.Value = dateOfBirth;
-        //    command.Parameters.Add(param);
-        //    command.Parameters.Add(param2);
-        //    command.ExecuteNonQuery();
-        //}
-        //public void DeleteFromDB(int id)
-        //{
-        //    string commandText = $"Delete FROM Person Where PersonId = '{id}'";
-        //    SQLiteCommand command = new SQLiteCommand(commandText, Connection);
-        //    command.ExecuteNonQuery();
-        //}
     }
 }

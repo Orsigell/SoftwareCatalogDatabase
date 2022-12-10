@@ -14,13 +14,11 @@ namespace SoftwareCatalogDatabase
     public partial class ComparisonForm : Form
     {
         private DBWorker dBWorker;
-        private DataTable dt;
 
         public ComparisonForm(DBWorker dBWorker, DataTable dt)
         {
             InitializeComponent();
             this.dBWorker = dBWorker;
-            this.dt = dt;
             label3.Text = (string)dt.Rows[0][1];
             pictureBox1.Image = ByteToImage((byte[])dt.Rows[0][3]);
             textBox3.Text = (string)dt.Rows[0][2];
@@ -82,7 +80,7 @@ namespace SoftwareCatalogDatabase
                 }
                 if (!isExist)
                 {
-                    item.BackColor = Color.Green;
+                    item.BackColor = Color.GreenYellow;
                 }
             }
             foreach (ListViewItem item2 in listView2.Items)

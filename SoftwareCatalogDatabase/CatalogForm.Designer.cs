@@ -37,12 +37,12 @@
             this.добавитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.найтиПОПоПодборкамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.найтиПОПоПодборкамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -55,10 +55,10 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(172, 24);
+            this.dataGridView1.Location = new System.Drawing.Point(250, 24);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(841, 426);
+            this.dataGridView1.Size = new System.Drawing.Size(847, 426);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.DataSourceChanged += new System.EventHandler(this.dataGridView1_DataSourceChanged);
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
@@ -71,7 +71,7 @@
             this.TagsListView.HideSelection = false;
             this.TagsListView.Location = new System.Drawing.Point(0, 24);
             this.TagsListView.Name = "TagsListView";
-            this.TagsListView.Size = new System.Drawing.Size(172, 426);
+            this.TagsListView.Size = new System.Drawing.Size(250, 426);
             this.TagsListView.TabIndex = 3;
             this.TagsListView.UseCompatibleStateImageBehavior = false;
             this.TagsListView.View = System.Windows.Forms.View.List;
@@ -79,9 +79,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(15, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(291, 271);
+            this.pictureBox1.Size = new System.Drawing.Size(270, 271);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -94,7 +94,7 @@
             this.найтиПОПоПодборкамToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1013, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1097, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -135,14 +135,21 @@
             this.удалитьЗаписьToolStripMenuItem.Text = "Удалить запись...";
             this.удалитьЗаписьToolStripMenuItem.Click += new System.EventHandler(this.удалитьЗаписьToolStripMenuItem_Click);
             // 
+            // найтиПОПоПодборкамToolStripMenuItem
+            // 
+            this.найтиПОПоПодборкамToolStripMenuItem.Name = "найтиПОПоПодборкамToolStripMenuItem";
+            this.найтиПОПоПодборкамToolStripMenuItem.Size = new System.Drawing.Size(156, 20);
+            this.найтиПОПоПодборкамToolStripMenuItem.Text = "Найти ПО по подборкам";
+            this.найтиПОПоПодборкамToolStripMenuItem.Click += new System.EventHandler(this.найтиПОПоПодборкамToolStripMenuItem_Click);
+            // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(560, 27);
+            this.textBox1.Location = new System.Drawing.Point(601, 27);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 20);
+            this.textBox1.Size = new System.Drawing.Size(193, 20);
             this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -153,10 +160,27 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(716, 24);
+            this.panel1.Location = new System.Drawing.Point(800, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(297, 426);
             this.panel1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 367);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Название подборки";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(126, 364);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(168, 21);
+            this.comboBox1.TabIndex = 7;
             // 
             // button1
             // 
@@ -168,35 +192,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(126, 364);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 21);
-            this.comboBox1.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 367);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Название подборки";
-            // 
-            // найтиПОПоПодборкамToolStripMenuItem
-            // 
-            this.найтиПОПоПодборкамToolStripMenuItem.Name = "найтиПОПоПодборкамToolStripMenuItem";
-            this.найтиПОПоПодборкамToolStripMenuItem.Size = new System.Drawing.Size(156, 20);
-            this.найтиПОПоПодборкамToolStripMenuItem.Text = "Найти ПО по подборкам";
-            this.найтиПОПоПодборкамToolStripMenuItem.Click += new System.EventHandler(this.найтиПОПоПодборкамToolStripMenuItem_Click);
-            // 
             // CatalogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1013, 450);
+            this.ClientSize = new System.Drawing.Size(1097, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);

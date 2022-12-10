@@ -115,12 +115,31 @@ namespace SoftwareCatalogDatabase
 
         private void изменитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (selectedSoftwareId != -1)
+            {
+                UpdateSoftwareForm updateSoftwareForm = new UpdateSoftwareForm(myDBWorker, selectedSoftwareId);
+                updateSoftwareForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Выберите программу из списка для изменения");
+            }
         }
 
         private void удалитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (selectedSoftwareId != -1)
+            {
+                if (MessageBox.Show("Вы уверены что хотите безвозвратно удалить выбранную программу и все связанные с ней данные?", "Удаление программы", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    myDBWorker.DeleteSoftware(selectedSoftwareId);
+                    CatalogUpdate();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите программу из списка для изменения");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
