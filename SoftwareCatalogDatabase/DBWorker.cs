@@ -32,6 +32,11 @@ namespace SoftwareCatalogDatabase
             return list;
         }
 
+        public int GetSoftwareCountByTag(string text)
+        {
+            return GetNumber($"SELECT COUNT(*) FROM categories_group WHERE categories_id = (SELECT id_categories FROM categories WHERE category_name = '{text}')");
+        }
+
         public DataTable GetSoftwareCatalogFromDBById(int id)
         {
             return ExecuteSQLCommandAndReturnDataTable($"SELECT * FROM SOFTWARE WHERE id_software == {id}");

@@ -43,6 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.сводныеОтчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поКоличествуПрограммToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -91,7 +93,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.оПрограммеToolStripMenuItem,
             this.функцииТехническогоСпециалистаToolStripMenuItem,
-            this.найтиПОПоПодборкамToolStripMenuItem});
+            this.найтиПОПоПодборкамToolStripMenuItem,
+            this.сводныеОтчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1097, 24);
@@ -192,6 +195,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // сводныеОтчетыToolStripMenuItem
+            // 
+            this.сводныеОтчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.поКоличествуПрограммToolStripMenuItem});
+            this.сводныеОтчетыToolStripMenuItem.Name = "сводныеОтчетыToolStripMenuItem";
+            this.сводныеОтчетыToolStripMenuItem.Size = new System.Drawing.Size(110, 20);
+            this.сводныеОтчетыToolStripMenuItem.Text = "Сводные отчеты";
+            // 
+            // поКоличествуПрограммToolStripMenuItem
+            // 
+            this.поКоличествуПрограммToolStripMenuItem.Name = "поКоличествуПрограммToolStripMenuItem";
+            this.поКоличествуПрограммToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
+            this.поКоличествуПрограммToolStripMenuItem.Text = "По количеству программ в категории";
+            this.поКоличествуПрограммToolStripMenuItem.Click += new System.EventHandler(this.поКоличествуПрограммToolStripMenuItem_Click);
+            // 
             // CatalogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,5 +252,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem найтиПОПоПодборкамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сводныеОтчетыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поКоличествуПрограммToolStripMenuItem;
     }
 }

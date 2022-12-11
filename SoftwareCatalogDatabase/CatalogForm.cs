@@ -177,5 +177,11 @@ namespace SoftwareCatalogDatabase
             FillTags();
             dataGridView1.DataSource = myDBWorker.GetSoftwareCatalogFromDB();
         }
+
+        private void поКоличествуПрограммToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProgrammCountByTagsForm programmCountByTagsForm = new ProgrammCountByTagsForm(myDBWorker);
+            programmCountByTagsForm.Show();
+        }
     }
 }
